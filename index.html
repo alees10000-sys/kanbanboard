@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kanban Board</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">◧</span>
+      <h1>Kanban Board</h1>
+    </div>
+    <div class="topbar-actions">
+      <div class="search">
+        <span class="search-icon">⌕</span>
+        <input id="search" type="text" placeholder="Buscar tareas…" aria-label="Buscar tareas" />
+      </div>
+      <button id="theme-toggle" class="btn ghost" title="Cambiar tema" aria-label="Cambiar tema">🌙</button>
+      <button id="clear-all" class="btn ghost" title="Borrar todo">Vaciar</button>
+    </div>
+  </header>
+
+  <main class="board" id="board"></main>
+
+  <!-- Plantilla de columna -->
+  <template id="column-tpl">
+    <section class="column" data-key="">
+      <div class="column-head">
+        <div class="column-title">
+          <span class="dot"></span>
+          <h2></h2>
+          <span class="count">0</span>
+        </div>
+      </div>
+      <div class="cards" data-dropzone></div>
+      <button class="add-card">+ Añadir tarea</button>
+    </section>
+  </template>
+
+  <!-- Modal nueva/editar tarea -->
+  <div class="modal-backdrop" id="modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <h3 id="modal-title">Nueva tarea</h3>
+      <form id="task-form">
+        <label>
+          Título
+          <input id="f-title" type="text" required maxlength="80" placeholder="¿Qué hay que hacer?" />
+        </label>
+        <label>
+          Descripción
+          <textarea id="f-desc" rows="3" maxlength="300" placeholder="Detalles (opcional)"></textarea>
+        </label>
+        <div class="form-row">
+          <label>
+            Prioridad
+            <select id="f-priority">
+              <option value="low">Baja</option>
+              <option value="medium" selected>Media</option>
+              <option value="high">Alta</option>
+            </select>
+          </label>
+          <label>
+            Columna
+            <select id="f-status"></select>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn ghost" id="cancel-btn">Cancelar</button>
+          <button type="submit" class="btn primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
